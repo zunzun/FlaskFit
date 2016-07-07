@@ -20,7 +20,7 @@ and install Flask with:
 easy_install Flask
 
 
-Finally, install the pyeq3 fitting code using pip:
+Finally, install the pyeq3 fitting library using pip:
 
 pip3 install pyeq3
 
