@@ -52,10 +52,6 @@ You are now curve and surface fitting data using Flask!
 
 
 
-Look at the other pyeq3 examples for more information on
-topics such as parallel processing or "function finding".
-
-
 If you would like to create a feature complete web site
 with django, see https://github.com/zunzun/zunzunsite3
 which has "function finding" and animated surface rotations
