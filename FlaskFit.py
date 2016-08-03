@@ -83,14 +83,14 @@ def simplefitter_2D_NoFormDataValidation():
 
     # create graph
     graphFilePath = "static/model_and_scatterplot_2D.png"
-    title = "Example Of An HTML FORM Model"
+    title = "Model with 95% Confidence Intervals"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     GraphUtils.SaveModelScatterConfidence(graphFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
     absErrorPlotFilePath = "static/abs_error_2D.png"
-    title = "Absolute Error For An HTML FORM Model"
+    title = "Absolute Error"
     GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, yAxisLabel)
     
     absErrorHistFilePath = "static/abs_error_hist_2D.png"
@@ -99,7 +99,7 @@ def simplefitter_2D_NoFormDataValidation():
     
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
         percentErrorPlotFilePath = "static/per_error_2D.png"
-        title = "Percent Error For An HTML FORM Model"
+        title = "Percent Error"
         GraphUtils.SavePercentErrorScatterPlot(percentErrorPlotFilePath, equation, title, yAxisLabel)
         
         perErrorHistFilePath = "static/per_error_hist_2D.png"
@@ -175,8 +175,8 @@ def simplefitter_3D_NoFormDataValidation():
     # create graphs
     graphFilePath_Surface = "static/surface.png" # surface plot
     graphFilePath_Contour = "static/contour.png" # contour plot
-    surfaceTitle = "Example Surface Plot"
-    contourTitle = "Example Contour Plot"
+    surfaceTitle = "Surface Plot"
+    contourTitle = "Contour Plot"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     zAxisLabel = "Z data"
@@ -186,7 +186,7 @@ def simplefitter_3D_NoFormDataValidation():
                                       xAxisLabel, yAxisLabel, zAxisLabel)
 
     absErrorPlotFilePath = "static/abs_error_3D.png"
-    title = "Absolute Error For An HTML FORM Model"
+    title = "Absolute Error"
     GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, zAxisLabel)
 
     absErrorHistFilePath = "static/abs_error_hist_3D.png"
@@ -195,7 +195,7 @@ def simplefitter_3D_NoFormDataValidation():
 
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
         perErrorPlotFilePath = "static/per_error_3D.png"
-        title = "Percent Error For An HTML FORM Model"
+        title = "Percent Error"
         GraphUtils.SavePercentErrorScatterPlot(perErrorPlotFilePath, equation, title, zAxisLabel)
         
         perErrorHistFilePath = "static/per_error_hist_3D.png"
