@@ -25,7 +25,7 @@ Example 2D data for testing
 <input type="radio" name="equation" value="Quadratic">Quadratic Polynomial<br>
 <input type="radio" name="equation" value="Cubic">Cubic Polynomial<br>
 <input type="radio" name="equation" value="WitchA">Witch Of Maria Agnesi A<br>
-<input type="radio" name="equation" value="VanDeemter">VanDeemter Chromatography<br>
+<input type="radio" name="equation" value="LorentzianPeakCWithOffset">Lorentzian Peak C With Offset<br>
 <input type="radio" name="equation" value="GammaRayDegreesB">Gamma Ray Angular Distribution (degrees) B<br>
 <input type="radio" name="equation" value="ExponentialWithOffset">Exponential With Offset<br>
 <br>

@@ -49,8 +49,8 @@ def simplefitter_2D_NoFormDataValidation():
         equation = pyeq3.Models_2D.Polynomial.Cubic(formFittingTarget)
     elif formEquation == 'WitchA':
         equation = pyeq3.Models_2D.Miscellaneous.WitchOfAgnesiA(formFittingTarget)
-    elif formEquation == 'VanDeemter':
-        equation = pyeq3.Models_2D.Engineering.VanDeemterChromatography(formFittingTarget)
+    elif formEquation == 'LorentzianPeakCWithOffset':
+        equation = pyeq3.Models_2D.Peak.LorentzianPeakC(formFittingTarget, 'Offset')
     elif formEquation == 'GammaRayDegreesB':
         equation = pyeq3.Models_2D.LegendrePolynomial.GammaRayAngularDistributionDegreesB(formFittingTarget)
     elif formEquation == 'ExponentialWithOffset':
