@@ -1,6 +1,6 @@
 import os, sys, inspect
 
-import pyeq3, GraphUtils, TextUtils, UserInterface
+import pyeq3, GraphUtils, TextUtils, UserInterface, FileInfo
 from flask import Flask
 from flask import request
 
@@ -74,53 +74,46 @@ def simplefitter_2D_NoFormDataValidation():
     equation.CalculateCoefficientAndFitStatistics()
 
     # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_2D.txt"
-    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+    TextUtils.SaveCoefficientAndFitStatistics(FileInfo.fitStatisticsFilePath_2D,  equation)
 
     # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_2D.html"
-    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+    TextUtils.SaveSourceCode(FileInfo.sourceCodeFilePath_2D,  equation)
 
     # create graph
-    graphFilePath = "static/model_and_scatterplot_2D.png"
     title = "Model with 95% Confidence Intervals"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
-    GraphUtils.SaveModelScatterConfidence(graphFilePath,
+    GraphUtils.SaveModelScatterConfidence(FileInfo.modelPlotFilePath_2D,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
-    absErrorPlotFilePath = "static/abs_error_2D.png"
     title = "Absolute Error"
-    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, yAxisLabel)
+    GraphUtils.SaveAbsErrorScatterPlot(FileInfo.absErrorPlotFilePath_2D, equation, title, yAxisLabel)
     
-    absErrorHistFilePath = "static/abs_error_hist_2D.png"
     title = "Absolute Error"
-    GraphUtils.SaveDataHistogram(absErrorHistFilePath, equation.modelAbsoluteError, title)
+    GraphUtils.SaveDataHistogram(FileInfo.absErrorHistFilePath_2D, equation.modelAbsoluteError, title)
     
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
-        percentErrorPlotFilePath = "static/per_error_2D.png"
         title = "Percent Error"
-        GraphUtils.SavePercentErrorScatterPlot(percentErrorPlotFilePath, equation, title, yAxisLabel)
+        GraphUtils.SavePercentErrorScatterPlot(FileInfo.perErrorPlotFilePath_2D, equation, title, yAxisLabel)
         
-        perErrorHistFilePath = "static/per_error_hist_2D.png"
         title = "Percent Error"
-        GraphUtils.SaveDataHistogram(perErrorHistFilePath, equation.modelPercentError, title)
+        GraphUtils.SaveDataHistogram(FileInfo.perErrorHistFilePath_2D, equation.modelPercentError, title)
 
 
     # generate HTML
     htmlToReturn = ''
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>\n'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>\n'
-    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>\n'
-    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>\n'
-    htmlToReturn += '<a href="static/AdditionalInfo.html">Link to additional information</a><br><br>\n'
-    htmlToReturn +=  '<img src="' + graphFilePath + '"> <br>\n'
-    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br>\n'
-    htmlToReturn +=  '<img src="' + absErrorHistFilePath + '"><br>\n'
+    htmlToReturn += '<a href="' + FileInfo.fitStatisticsURL_2D + '">Link to parameter and fit statistics</a><br><br>\n'
+    htmlToReturn += '<a href="' + FileInfo.sourceCodeURL_2D + '">Link to source code, all available languages</a><br><br>\n'
+    htmlToReturn += '<a href="' + FileInfo.additionalInfoURL + '">Link to additional information</a><br><br>\n'
+    htmlToReturn +=  '<img src="' + FileInfo.modelPlotURL_2D + '"> <br>\n'
+    htmlToReturn +=  '<img src="' + FileInfo.absErrorPlotURL_2D + '"><br>\n'
+    htmlToReturn +=  '<img src="' + FileInfo.absErrorHistURL_2D + '"><br>\n'
     
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
-        htmlToReturn +=  '<img src="' + percentErrorPlotFilePath + '"><br><br>\n'
-        htmlToReturn +=  '<img src="' + perErrorHistFilePath + '"><br><br>\n'
+        htmlToReturn +=  '<img src="' + FileInfo.perErrorPlotURL_2D + '"><br><br>\n'
+        htmlToReturn +=  '<img src="' + FileInfo.perErrorHistURL_2D + '"><br><br>\n'
 
     return '<html><body>' + htmlToReturn + '</body></html>'
 
@@ -165,57 +158,49 @@ def simplefitter_3D_NoFormDataValidation():
     equation.CalculateCoefficientAndFitStatistics()
 
     # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_3D.txt"
-    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+    TextUtils.SaveCoefficientAndFitStatistics(FileInfo.fitStatisticsFilePath_3D,  equation)
 
     # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_3D.html"
-    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+    TextUtils.SaveSourceCode(FileInfo.sourceCodeFilePath_3D,  equation)
 
     # create graphs
-    graphFilePath_Surface = "static/surface.png" # surface plot
-    graphFilePath_Contour = "static/contour.png" # contour plot
     surfaceTitle = "Surface Plot"
     contourTitle = "Contour Plot"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     zAxisLabel = "Z data"
-    GraphUtils.SurfaceAndContourPlots(graphFilePath_Surface,
-                                      graphFilePath_Contour,
+    GraphUtils.SurfaceAndContourPlots(FileInfo.modelPlotFilePath_3D,
+                                      FileInfo.contourPlotFilePath_3D,
                                       equation, surfaceTitle, contourTitle,
                                       xAxisLabel, yAxisLabel, zAxisLabel)
 
-    absErrorPlotFilePath = "static/abs_error_3D.png"
     title = "Absolute Error"
-    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, zAxisLabel)
+    GraphUtils.SaveAbsErrorScatterPlot(FileInfo.absErrorPlotFilePath_3D, equation, title, zAxisLabel)
 
-    absErrorHistFilePath = "static/abs_error_hist_3D.png"
     title = "Absolute Error"    
-    GraphUtils.SaveDataHistogram(absErrorHistFilePath, equation.modelAbsoluteError, title)
+    GraphUtils.SaveDataHistogram(FileInfo.absErrorHistFilePath_3D, equation.modelAbsoluteError, title)
 
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
-        perErrorPlotFilePath = "static/per_error_3D.png"
         title = "Percent Error"
-        GraphUtils.SavePercentErrorScatterPlot(perErrorPlotFilePath, equation, title, zAxisLabel)
+        GraphUtils.SavePercentErrorScatterPlot(FileInfo.perErrorPlotFilePath_3D, equation, title, zAxisLabel)
         
-        perErrorHistFilePath = "static/per_error_hist_3D.png"
         title = "Percent Error"
-        GraphUtils.SaveDataHistogram(perErrorHistFilePath, equation.modelPercentError, title)
+        GraphUtils.SaveDataHistogram(FileInfo.perErrorHistFilePath_3D, equation.modelPercentError, title)
 
     # generate HTML
     htmlToReturn = ''
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>\n'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>\n'
-    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>\n'
-    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>\n'
-    htmlToReturn += '<a href="static/AdditionalInfo.html">Link to additional information</a><br><br>\n'
-    htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"><br><br>\n'
-    htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>\n'
-    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>\n'
-    htmlToReturn +=  '<img src="' + absErrorHistFilePath + '"><br><br>\n'
+    htmlToReturn += '<a href="' + FileInfo.fitStatisticsURL_3D + '">Link to parameter and fit statistics</a><br><br>\n'
+    htmlToReturn += '<a href="' + FileInfo.sourceCodeURL_3D + '">Link to source code, all available languages</a><br><br>\n'
+    htmlToReturn += '<a href="' + FileInfo.additionalInfoURL + '">Link to additional information</a><br><br>\n'
+    htmlToReturn +=  '<img src="' + FileInfo.modelPlotURL_3D + '"><br><br>\n'
+    htmlToReturn +=  '<img src="' + FileInfo.contourPlotURL_3D + '"><br><br>\n'
+    htmlToReturn +=  '<img src="' + FileInfo.absErrorPlotURL_3D + '"><br><br>\n'
+    htmlToReturn +=  '<img src="' + FileInfo.absErrorHistURL_3D + '"><br><br>\n'
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
-        htmlToReturn +=  '<img src="' + perErrorPlotFilePath + '"><br><br>\n'
-        htmlToReturn +=  '<img src="' + perErrorHistFilePath + '"><br><br>\n'
+        htmlToReturn +=  '<img src="' + FileInfo.perErrorPlotURL_3D + '"><br><br>\n'
+        htmlToReturn +=  '<img src="' + FileInfo.perErrorHistURL_3D + '"><br><br>\n'
 
     return '<html><body>' + htmlToReturn + '</body></html>'
 
